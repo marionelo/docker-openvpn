@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+    openvpn-as:
+        image: linuxserver/openvpn-as
+        container_name: openvpn-as
+        cap_add:
+            - NET_ADMIN
+        environment:
+            PGID: 1000
+            PUID: 1000
+            TZ: America/Mexico_City
+            INTERFACE: eth0 #optional
+            #FILE__PASSWORD: /home/mariossan/dockers/vpn/mysecretpassword
+        volumes:
+            - $PWD/openvpn-as:/config:rw
+        ports:
+            - 943:943
+            - 9443:9443
+            - 1194:1194/udp
+        restart: always
+        network_mode: bridge
